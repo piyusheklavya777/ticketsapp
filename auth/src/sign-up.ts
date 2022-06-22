@@ -1,12 +1,32 @@
 import { Router } from 'express';
 import { Request, Response } from 'express';
-import { v}
+import { body, Result, validationResult } from 'express-validator';
+import _ from 'lodash';
 
 const router = Router();
 
-router.post('/api/users/signup', [] ,(request : Request, response : Response) => {
+router.post('/api/users/signup', [
+    body('email')
+        .isEmail()
+        .withMessage('Invalid email'),
+    body('password')
+        .trim()
+        .isLength({ min: 5, max: 15  })
+        .withMessage('Invalid Password')
+] ,(request : Request, response : Response) => {
+
     console.log('GET /api/users/signup');
-    response.send('GET /api/users/signup');
+
+    const errors = validationResult(request);
+
+    if (!errors.isEmpty()) {
+        console.log('failed validation', errors)
+        return response.status(400).send(errors.array());
+    }
+    
+    console.log('...creating user');
+
+    response.status(201).send({result: 'User created'});
 });
 
 export { router as signupRouter };
