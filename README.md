@@ -1,2 +1,2 @@
 # ticketsapp
-A ticket booking application | Event based | 
+A ticket booking application | Event based |  
