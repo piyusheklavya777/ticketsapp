@@ -4,8 +4,12 @@ import { currentUserRouter } from './current-user';
 import { signupRouter } from './sign-up';
 import { signinRouter } from './sign-in';
 import { signoutRouter } from './sign-out';
+import { errorHandler } from './middlewares/error-handler'
+import { InvalidPathError } from './errors/invalid-path-error';
+import 'express-async-errors';
+
 const app = express();
-// middlewares
+//incoming middlewares
 app.use(json());
 
 // listening configuration
@@ -20,3 +24,10 @@ app.use(currentUserRouter);
 app.use(signupRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
+
+app.all('*', async () => {
+    throw new InvalidPathError();
+})
+
+// outgoing middlewares
+app.use(errorHandler);

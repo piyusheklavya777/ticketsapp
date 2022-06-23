@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { Request, Response } from 'express';
-import { body, Result, validationResult } from 'express-validator';
+import { body, validationResult } from 'express-validator';
+import { RequestValidationError } from './errors/request-validation-error';
 import _ from 'lodash';
 
 const router = Router();
@@ -20,8 +21,8 @@ router.post('/api/users/signup', [
     const errors = validationResult(request);
 
     if (!errors.isEmpty()) {
-        console.log('failed validation', errors)
-        return response.status(400).send(errors.array());
+        console.log('failed validation', errors.array());
+        throw new RequestValidationError(errors.array())
     }
     
     console.log('...creating user');
