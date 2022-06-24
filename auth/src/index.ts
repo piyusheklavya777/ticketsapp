@@ -9,10 +9,17 @@ import 'express-async-errors';
 import mongoose from 'mongoose';
 import { DatabaseConnectionError } from './errors/database-connection-error';
 import { InvalidPathError } from './errors/invalid-path-error';
+import cookieSession from 'cookie-session';
+
 
 const app = express();
+app.set('trust proxy', true);
 //incoming middlewares
 app.use(json());
+app.use(cookieSession({
+    signed: false,
+    secure: true,
+}))
 
 // listening configuration
 const PORT = process.env.EXPRESS_CONFIG_AUTH_PORT || 3000;

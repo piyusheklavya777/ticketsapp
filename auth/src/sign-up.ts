@@ -5,6 +5,7 @@ import { RequestValidationError } from './errors/request-validation-error';
 import { User } from './models/user';
 import _ from 'lodash';
 import { UserAlreadyExists } from './errors/user-already-exists-error';
+import jwt from 'jsonwebtoken';
 
 const router = Router();
 
@@ -43,6 +44,13 @@ router.post('/api/users/signup', [
     });
 
     await newUser.save();
+
+    const newToken = jwt.sign({
+        id: newUser._id,
+        email: newUser.email,
+    }, 'asdf');
+
+    _.set(request, ['session', 'jwt'], newToken);
 
     response.status(201).send({result: 'User created', newUser});
 });
