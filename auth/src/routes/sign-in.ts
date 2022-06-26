@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
-import { RequestValidationError } from './errors/request-validation-error';
-import { User } from './models/user';
+import { RequestValidationError } from '../errors/request-validation-error';
+import { User } from '../models/user';
 import _ from 'lodash';
-import { LoginFailed } from './errors/log-in-failed-error';
-import Password from './services/password';
+import { LoginFailed } from '../errors/log-in-failed-error';
+import Password from '../services/password';
 import jwt from 'jsonwebtoken';
 
 const router = Router();
