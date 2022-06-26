@@ -19,7 +19,7 @@ router.post('/api/users/signup', [
         .withMessage('Invalid Password')
 ] , async (request : Request, response : Response) => {
 
-    console.log('GET /api/users/signup');
+    console.log('POST /api/users/signup');
 
     const errors = validationResult(request);
 
@@ -46,11 +46,13 @@ router.post('/api/users/signup', [
     await newUser.save();
 
     const newToken = jwt.sign({
-        id: newUser._id,
+        id: newUser.id,
         email: newUser.email,
-    }, 'asdf');
+    }, process.env.JWT_KEY!);
 
     _.set(request, ['session', 'jwt'], newToken);
+
+
 
     response.status(201).send({result: 'User created', newUser});
 });
