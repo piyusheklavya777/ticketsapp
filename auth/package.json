@@ -5,17 +5,19 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev src/index.ts",
-    "test": "jest ./test/**/* --no-cache"
+    "test": "jest test.ts --runInBand --detectOpenHandles --debug"
   },
   "jest" : {
     "preset": "ts-jest",
     "testEnvironment": "node",
+    "globalSetup": "./src/test/mongodb-memory-server-setup/globalSetup.ts",
+    "globalTeardown": "./src/test/mongodb-memory-server-setup/globalTeardown.ts",
     "setupFilesAfterEnv": [
-      "./src/est/setup.ts"
+      "./src/test/setup.ts"
     ]
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["express","microservice","nodejs"],
+  "author": "piyush.eklavya@lysto.io",
   "license": "ISC",
   "dependencies": {
     "@types/cookie-session": "^2.0.44",
@@ -45,7 +47,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
     "jest": "^28.1.1",
-    "mongodb-memory-server": "^8.7.1",
+    "mongodb-memory-server": "^7.6.3",
     "supertest": "^6.2.3",
     "ts-jest": "^28.0.5"
   }

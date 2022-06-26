@@ -3,16 +3,35 @@ import mongoose from 'mongoose';
 import { app } from '../app';
 
 let mongo: any;
+// jest.setTimeout(15000);
 beforeAll(async () => {
-    mongo = new MongoMemoryServer();
-    const mongoUri = await mongo.getUri();
+    try {
+        // mongo = new MongoMemoryServer();
+        // // await setTimeout(() => console.log('wait ended'), 1000);
+        // const mongoUri = await mongo.getUri();
+        // console.log(`mongo uri: `, mongoUri);
+        // await mongoose.connect(mongoUri);
+        // console.log('mongoose connected');
+        //
+        // mongo = await MongoMemoryServer.create();
+        // console.log(`created mms instance`);
+        // const mongoUri = mongo.getUri();
+        // console.log(`mongoUri: `, mongoUri);
+        // await mongoose.connect(mongoUri);
+        //
+        console.log('CONNECTING')
+        await mongoose.connect(process.env['MONGO_URI']!);
 
-    await mongoose.connect(mongoUri);
+    } catch (e) {
+        console.log(`error connecting:`, { e });
+    }
 });
 
 beforeEach( async () => {
     const collections = await mongoose.connection.db.collections();
-    await Promise.all(collections.map(collection => collection.deleteMany({})));
+    for (const collection of collections) {
+        await collection.deleteMany({});
+    }
 });
 
 afterAll(async () => {
