@@ -1,25 +1,6 @@
-import express from 'express';
-import { json } from 'body-parser';
-import { currentUserRouter } from './current-user';
-import { signupRouter } from './sign-up';
-import { signinRouter } from './sign-in';
-import { signoutRouter } from './sign-out';
-import { errorHandler } from './middlewares/error-handler'
-import 'express-async-errors';
 import mongoose from 'mongoose';
 import { DatabaseConnectionError } from './errors/database-connection-error';
-import { InvalidPathError } from './errors/invalid-path-error';
-import cookieSession from 'cookie-session';
-
-
-const app = express();
-app.set('trust proxy', true);
-//incoming middlewares
-app.use(json());
-app.use(cookieSession({
-    signed: false,
-    secure: true,
-}))
+import { app } from './app';
 
 // listening configuration
 const PORT = process.env.EXPRESS_CONFIG_AUTH_PORT || 3000;
@@ -38,18 +19,3 @@ const start = async () => {
     });
 }
 start();
-
-// routing
-app.use(currentUserRouter);
-app.use(signupRouter);
-app.use(signinRouter);
-app.use(signoutRouter);
-
-// app.all('*', async () => {
-//     throw new InvalidPathError();
-// })
-
-// outgoing middlewares
-app.use(errorHandler);
-
-// utilities
