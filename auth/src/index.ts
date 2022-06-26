@@ -45,9 +45,9 @@ app.use(signupRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 
-app.all('*', async () => {
-    throw new InvalidPathError();
-})
+// app.all('*', async () => {
+//     throw new InvalidPathError();
+// })
 
 // outgoing middlewares
 app.use(errorHandler);
