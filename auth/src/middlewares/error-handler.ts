@@ -8,11 +8,20 @@ export const errorHandler = (
     response : Response,
     next : NextFunction
     ) => {
-        console.log('Error handler invoked!', error);
+        try {
+            console.log('Error handler invoked!', error);
 
-        if (error instanceof CustomError) {
-            return response.status(error.httpCodeMapping).send({errors: error.serializeError()});
+            if (error instanceof CustomError) {
+                return response.status(error.httpCodeMapping).send({errors: error.serializeError()});
+            }
+    
+            response.status(400).send({message: error.message});
+            next();
+
+        } catch (e) {
+            console.log('Error in the error handler middleware', e);
+            response.status(400).send({message: 'Error in the error handler middleware'});
+            next();
         }
 
-        response.status(400).send({message: error.message});
     }
