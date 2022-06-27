@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { DatabaseConnectionError } from './errors/database-connection-error';
+import { DatabaseConnectionError } from '@eklavguild/common';
 import { app } from './app';
 
 // listening configuration

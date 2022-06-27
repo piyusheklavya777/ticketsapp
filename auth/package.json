@@ -7,7 +7,7 @@
     "start": "ts-node-dev src/index.ts",
     "test": "jest test.ts --runInBand --detectOpenHandles --debug"
   },
-  "jest" : {
+  "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
     "globalSetup": "./src/test/mongodb-memory-server-setup/globalSetup.ts",
@@ -16,10 +16,15 @@
       "./src/test/setup.ts"
     ]
   },
-  "keywords": ["express","microservice","nodejs"],
+  "keywords": [
+    "express",
+    "microservice",
+    "nodejs"
+  ],
   "author": "piyush.eklavya@lysto.io",
   "license": "ISC",
   "dependencies": {
+    "@eklavguild/common": "^1.0.3",
     "@types/cookie-session": "^2.0.44",
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.8",

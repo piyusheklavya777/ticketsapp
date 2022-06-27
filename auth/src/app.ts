@@ -4,9 +4,9 @@ import { currentUserRouter } from './routes/current-user';
 import { signupRouter } from './routes/sign-up';
 import { signinRouter } from './routes/sign-in';
 import { signoutRouter } from './routes/sign-out';
-import { errorHandler } from './middlewares/error-handler'
+import { errorHandler } from '@eklavguild/common'
 import 'express-async-errors';
-import { InvalidPathError } from './errors/invalid-path-error';
+import { InvalidPathError } from '@eklavguild/common';
 import cookieSession from 'cookie-session';
 
 
